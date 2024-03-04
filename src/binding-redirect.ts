@@ -93,7 +93,7 @@ async function buildRedirectURL(opts: BuildRedirectConfig) {
 async function loginRequestRedirectURL(
   entity: { idp: Idp; sp: Sp },
   customTagReplacement?: (template: string) => BindingContext
-): BindingContext {
+) {
   const metadata: any = {
     idp: entity.idp.entityMeta,
     sp: entity.sp.entityMeta,
@@ -153,13 +153,13 @@ async function loginRequestRedirectURL(
  * @param  {String} relayState                the relaystate sent by sp corresponding request
  * @param  {function} customTagReplacement     used when developers have their own login response template
  */
-function loginResponseRedirectURL(
+async function loginResponseRedirectURL(
   requestInfo: any,
   entity: any,
   user: any = {},
   relayState?: string,
   customTagReplacement?: (template: string) => BindingContext
-): BindingContext {
+) {
   const idpSetting = entity.idp.entitySetting;
   const spSetting = entity.sp.entitySetting;
   const metadata = {
@@ -251,7 +251,7 @@ function loginResponseRedirectURL(
     // Like in post binding, SAML response is always signed
     return {
       id,
-      context: buildRedirectURL({
+      context: await buildRedirectURL({
         baseUrl: base,
         type: urlParams.samlResponse,
         isSigned: true,
@@ -271,12 +271,12 @@ function loginResponseRedirectURL(
  * @param  {function} customTagReplacement     used when developers have their own login response template
  * @return {string} redirect URL
  */
-function logoutRequestRedirectURL(
+async function logoutRequestRedirectURL(
   user,
   entity,
   relayState?: string,
   customTagReplacement?: (template: string, tags: object) => BindingContext
-): BindingContext {
+) {
   const metadata = {
     init: entity.init.entityMeta,
     target: entity.target.entityMeta,
@@ -316,7 +316,7 @@ function logoutRequestRedirectURL(
     }
     return {
       id,
-      context: buildRedirectURL({
+      context: await buildRedirectURL({
         context: rawSamlRequest,
         relayState,
         type: urlParams.logoutRequest,
@@ -334,12 +334,12 @@ function logoutRequestRedirectURL(
  * @param  {object} entity                      object includes both idp and sp
  * @param  {function} customTagReplacement     used when developers have their own login response template
  */
-function logoutResponseRedirectURL(
+async function logoutResponseRedirectURL(
   requestInfo: any,
   entity: any,
   relayState?: string,
   customTagReplacement?: (template: string) => BindingContext
-): BindingContext {
+) {
   const metadata = {
     init: entity.init.entityMeta,
     target: entity.target.entityMeta,
@@ -372,7 +372,7 @@ function logoutResponseRedirectURL(
     }
     return {
       id,
-      context: buildRedirectURL({
+      context: await buildRedirectURL({
         baseUrl: base,
         type: urlParams.logoutResponse,
         isSigned: entity.target.entitySetting.wantLogoutResponseSigned,

@@ -40,7 +40,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+        while (_) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -158,7 +158,7 @@ var ServiceProvider = /** @class */ (function (_super) {
         return (0, flow_1.flow)({
             from: idp,
             self: self,
-            checkSignature: true, // saml response must have signature
+            checkSignature: true,
             parserType: "SAMLResponse",
             type: "login",
             binding: binding,

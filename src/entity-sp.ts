@@ -61,7 +61,7 @@ export class ServiceProvider extends Entity {
     idp: IdentityProvider,
     binding = "redirect",
     customTagReplacement?: (template: string) => BindingContext
-  ): BindingContext | PostBindingContext | SimpleSignBindingContext {
+  ) {
     const nsBinding = namespace.binding;
     const protocol = nsBinding[binding];
     if (
